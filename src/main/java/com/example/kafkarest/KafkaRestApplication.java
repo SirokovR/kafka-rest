@@ -1,5 +1,7 @@
 package com.example.kafkarest;
 
+import com.example.kafkarest.repo.UserRepo;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -10,8 +12,10 @@ import org.springframework.kafka.annotation.KafkaListener;
 public class KafkaRestApplication {
 
     @KafkaListener(topics="msg")
-    public void msgListener(String msg){
-        System.out.println(msg);
+    public void orderListener(ConsumerRecord<Long, UserRepo> record){
+        System.out.println(record.partition());
+        System.out.println(record.key());
+        System.out.println(record.value());
     }
 
 
